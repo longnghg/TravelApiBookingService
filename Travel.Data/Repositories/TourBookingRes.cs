@@ -1165,18 +1165,19 @@ namespace Travel.Data.Repositories
                                             Vat = x.Vat,
                                             VoucherCode = x.VoucherCode
                                         });
-                foreach (var item in queryListTourBooking)
+                 listTourBooking = queryListTourBooking.ToList();
+                foreach (var item in listTourBooking)
                 {
                     item.Schedule = await CallServiceGetSchedule(item.ScheduleId);
                 }
                 if (!string.IsNullOrEmpty(kwToPlace))
                 {
-                    queryListTourBooking = (from x in queryListTourBooking
-                                            where x.Schedule.Tour.ToPlace == kwToPlace
-                                            select x);
+                    listTourBooking = (from x in listTourBooking
+                                       where x.Schedule.Tour.ToPlace == kwToPlace
+                                            select x).ToList();
                 }
 
-                listTourBooking = queryListTourBooking.AsNoTracking().Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+                listTourBooking = listTourBooking.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
                 var result = Mapper.MapTourBooking(listTourBooking);
                 var res = Ultility.Responses("", Enums.TypeCRUD.Success.ToString(), result);
                 res.TotalResult = totalResult;
