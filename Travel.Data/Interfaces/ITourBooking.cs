@@ -44,6 +44,7 @@ namespace Travel.Data.Interfaces
         Task<Response> UpdateStatus(string idTourBooking, int status, string emailUser);
         Task<List<TourBooking>> TourBookingByIdCustomer(Guid idCustomer);
         Task ChangeFeedBack(string idTourBooking);
+        List<TourBooking> GetListBookingByIdSchedule(string schedule);
 
         #region service call
 

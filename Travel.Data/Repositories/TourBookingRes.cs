@@ -1439,5 +1439,14 @@ namespace Travel.Data.Repositories
                 await SaveChangeAsync();
             }
         }
+
+        public List<TourBooking> GetListBookingByIdSchedule(string idschedule)
+        {
+            var tourBooking = (from x in _db.TourBookings.AsNoTracking()
+                                    where x.ScheduleId == idschedule
+                                    && (x.Status == (int)Enums.StatusBooking.Paying || x.Status == (int)Enums.StatusBooking.Paid)
+                                    select x).ToList();
+            return tourBooking;
+        }
     }
 }

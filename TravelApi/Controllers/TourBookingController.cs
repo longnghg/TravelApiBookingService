@@ -266,6 +266,16 @@ namespace TravelApi.Controllers
              await _tourbooking.ChangeFeedBack(idTourBooking);
         }
 
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("list-tour-booking-by-idschedule-s")]
+        public object ListTourBookingByIdSchedule(string idSchedule)
+        {
+            return _tourbooking.GetListBookingByIdSchedule(idSchedule);
+        }
+
         #endregion
 
 
