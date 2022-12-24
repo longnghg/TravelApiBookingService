@@ -250,6 +250,14 @@ namespace Travel.Shared.Ultilities
             }
 
         }
+        public static DateTime ConvertLongToDateTime(long d)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = long.Parse(d + " 0000 ");
+            TimeSpan toNow = new TimeSpan(lTime);
+            DateTime dtResult = dtStart.Add(toNow);
+            return dtResult;
+        }
         #endregion
 
 
