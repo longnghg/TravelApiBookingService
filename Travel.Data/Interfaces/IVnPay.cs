@@ -9,7 +9,7 @@ namespace Travel.Data.Interfaces
 {
     public interface IVnPay
     {
-        Task<string> CreatePaymentUrl(string idTourBooking, HttpContext context);
+        Task<string> CreatePaymentUrl(string idTourBooking,string idCustomer, HttpContext context);
          Task<PaymentResponse> PaymentExecute(IQueryCollection collections,string idTourBooking,string idcustomer = null);
     }
 }

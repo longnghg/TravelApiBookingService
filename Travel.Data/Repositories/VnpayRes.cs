@@ -29,7 +29,7 @@ namespace Travel.Data.Repositories
             _db = db;
         }
 
-        public async Task<string> CreatePaymentUrl(string idTourBooking, HttpContext context)
+        public async Task<string> CreatePaymentUrl(string idTourBooking,string idCustomer, HttpContext context)
         {
             #region get schedule
             var tourBooking = await _tourbooking.GetTourBookingByIdForPayPal(idTourBooking);
@@ -46,7 +46,7 @@ namespace Travel.Data.Repositories
             var timeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneById);
             var tick = DateTime.Now.Ticks.ToString();
             var pay = new VnPayLibrary();
-            var urlCallBack = $"{_configuration["VnpaySetting:UrlCallback"]}api/pay/callback-vnpay?idTourBooking={idTourBooking}";
+            var urlCallBack = $"{_configuration["VnpaySetting:UrlCallback"]}api/pay/callback-vnpay?idTourBooking={idTourBooking}&idCustomer={idCustomer}";
             var OrderType = "";
             pay.AddRequestData("vnp_Version", _configuration["VnpaySetting:Version"]);
             pay.AddRequestData("vnp_Command", _configuration["VnpaySetting:Command"]);
