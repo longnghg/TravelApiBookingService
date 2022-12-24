@@ -521,7 +521,7 @@ namespace Travel.Data.Repositories
 
                 tourbooking.TourBookingDetails = tourBookingDetail;
                 #region create qr
-                string qrCodeText = _config[$"ReturnBill/{tourbooking.IdTourBooking}"]; // cần truyền gì bỏ vào
+                string qrCodeText = _config["ReturnBill/" + tourbooking.IdTourBooking]; // cần truyền gì bỏ vào
                 string urlQR = AddImg(qrCodeText, tourbooking.IdTourBooking);
                 tourbooking.UrlQR = urlQR;
                 #endregion
@@ -776,7 +776,7 @@ namespace Travel.Data.Repositories
                 if (tourbooking != null)
                 {
                     // kiểm tra xem có không, nếu chưa có id thì gán lại cho nó
-                    if (tourbooking.CustomerId != Guid.Empty)
+                    if (tourbooking.CustomerId == Guid.Empty)
                     {
                         if (!string.IsNullOrEmpty(customerid))
                         {
