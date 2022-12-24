@@ -289,6 +289,28 @@ namespace Travel.Data.Repositories
             }
             return null;
         }
+        public async Task<Guid> CallServiceGetCustomerIdByPhone(string phone)
+        {
+
+            using (var client = new HttpClient())
+            {
+                var urlService = _config["UrlService"].ToString();
+                client.BaseAddress = new Uri($"{urlService}");
+                client.DefaultRequestHeaders.Accept.Clear();
+                HttpResponseMessage response = await client.GetAsync($"api/customer/customer-by-phone-s?phone={phone}");
+                if (response.IsSuccessStatusCode)
+                {
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    string data = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<Guid>(data, options);
+                }
+
+            }
+            return Guid.Empty;
+        }
         public async Task<bool> CallServiceCheckEmptyCapacity(string idSchedule, int adult, int child, int baby)
         {
             bool isCorrect = false;
@@ -499,7 +521,7 @@ namespace Travel.Data.Repositories
 
                 tourbooking.TourBookingDetails = tourBookingDetail;
                 #region create qr
-                string qrCodeText = "123"; // cần truyền gì bỏ vào
+                string qrCodeText = _config[$"ReturnBill/{tourbooking.IdTourBooking}"]; // cần truyền gì bỏ vào
                 string urlQR = AddImg(qrCodeText, tourbooking.IdTourBooking);
                 tourbooking.UrlQR = urlQR;
                 #endregion
@@ -737,16 +759,37 @@ namespace Travel.Data.Repositories
                 return Ultility.Responses("Có lỗi xảy ra !", Enums.TypeCRUD.Error.ToString(), description: e.Message);
             }
         }
-        public async Task<Response> DoPayment(string idTourBooking) // for admin if customer payment
+        public async Task<Response> DoPayment(string idTourBooking,string customerid, string phone) // for admin if customer payment
         {
             try
             {
+                Guid idCustomer = Guid.Empty;
                 var tourbooking = await (from tb in _db.TourBookings.AsNoTracking()
                                          where tb.IdTourBooking == idTourBooking
                                          && tb.Status == (int)Enums.StatusBooking.Paying
                                          select tb).FirstOrDefaultAsync();
+                
+
+
+
+               
                 if (tourbooking != null)
                 {
+                    // kiểm tra xem có không, nếu chưa có id thì gán lại cho nó
+                    if (tourbooking.CustomerId != Guid.Empty)
+                    {
+                        if (!string.IsNullOrEmpty(customerid))
+                        {
+                             idCustomer = Guid.Parse(customerid);
+                        }
+                        // gọi service lấy ra customer 
+                        if (!string.IsNullOrEmpty(phone))
+                        {
+                            idCustomer = await CallServiceGetCustomerIdByPhone(phone);
+                        }
+                        tourbooking.CustomerId = idCustomer;
+                    }
+
                     var bookingNo = $"{tourbooking.IdTourBooking}NO";
                     tourbooking.Deposit = tourbooking.TotalPrice;
                     tourbooking.Status = (int)Enums.StatusBooking.Paid;

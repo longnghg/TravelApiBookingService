@@ -83,7 +83,7 @@ namespace Travel.Data.Repositories
             var nvc = HttpUtility.ParseQueryString(queryString);
             return nvc.AllKeys.ToDictionary(k => k, k => nvc[k]);
         }
-        public async Task<PaymentResponse> PaymentExecute(IQueryCollection collections, string idTourBooking)
+        public async Task<PaymentResponse> PaymentExecute(IQueryCollection collections, string idTourBooking,string idCustomer)
         {
             var pay = new VnPayLibrary();
             var response = pay.GetFullResponseData(collections, _configuration["VnpaySetting:HashSecret"]);
@@ -96,7 +96,7 @@ namespace Travel.Data.Repositories
             {
                 if (response.VnPayResponseCode == "00")
                 {
-                   await _tourbooking.DoPayment(idTourBooking);
+                   await _tourbooking.DoPayment(idTourBooking, idCustomer);
                 }
                 response.UrlReturnBill = $"{_configuration["UrlClientCustomer"]}/bill/{idTourBooking}";
             }

@@ -44,11 +44,12 @@ namespace TravelApi.Controllers
         [HttpGet]
         [Authorize]
         [Route("do-payment")]
-        public async Task<object> DoPayment(string idTourBooking)
+        public async Task<object> DoPayment(string idTourBooking,string customerId = null, string phoneCus = null)
         {
-            res =  await _tourbooking.DoPayment(idTourBooking);
+            res =  await _tourbooking.DoPayment(idTourBooking, customerId, phoneCus);
             return Ok(res);
         }
+
         [HttpGet]
         [Authorize]
         [Route("list-tourbooking-by-date")]
@@ -163,7 +164,6 @@ namespace TravelApi.Controllers
             return Ok(res);
         }
         [HttpPost]
-        [Authorize]
         [Route("search-TourBooking")]
         public async Task<object> SearchTourBooking([FromBody] JObject frmData)
         {
