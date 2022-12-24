@@ -253,7 +253,9 @@ namespace Travel.Shared.Ultilities
         public static DateTime ConvertLongToDateTime(long d)
         {
             DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-            long lTime = long.Parse(d + " 0000 ");
+            var datestring = d.ToString() ;
+            datestring = $"{datestring}0000";
+            long lTime = long.Parse(datestring);
             TimeSpan toNow = new TimeSpan(lTime);
             DateTime dtResult = dtStart.Add(toNow);
             return dtResult;
