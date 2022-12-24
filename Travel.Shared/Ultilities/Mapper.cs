@@ -70,6 +70,7 @@ namespace Travel.Shared.Ultilities
                 cfg.CreateMap<TourBooking, TourBookingViewModel>()
                     .ForMember(dto => dto.IdTourBooking, opt => opt.MapFrom(src => src.IdTourBooking))
                     .ForMember(dto => dto.NameCustomer, opt => opt.MapFrom(src => src.NameCustomer))
+                    .ForMember(dto => dto.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
                     .ForMember(dto => dto.TotalPrice, opt => opt.MapFrom(src => src.TotalPrice))
                      .ForMember(dto => dto.TotalPricePromotion, opt => opt.MapFrom(src => src.TotalPricePromotion))
                     .ForMember(dto => dto.Address, opt => opt.MapFrom(src => src.Address))
