@@ -768,11 +768,10 @@ namespace Travel.Data.Repositories
                                          where tb.IdTourBooking == idTourBooking
                                          && tb.Status == (int)Enums.StatusBooking.Paying
                                          select tb).FirstOrDefaultAsync();
-                
+
+                var schedule = await CallServiceGetSchedule(tourbooking.ScheduleId);
 
 
-
-               
                 if (tourbooking != null)
                 {
                     // kiểm tra xem có không, nếu chưa có id thì gán lại cho nó
@@ -797,11 +796,16 @@ namespace Travel.Data.Repositories
                     UpdateDatabase<TourBooking>(tourbooking);
                     await SaveChangeAsync();
                     #region sendMail
-
+                    var pincode = tourbooking.Pincode;
+                    string fullname = tourbooking.NameCustomer;
+                    var idtour = schedule.TourId;
+                    var qr = _config["Bill"] +"bill/"+ tourbooking.IdTourBooking;
+                    var departurnday = Ultility.ConvertLongToDateTime(schedule.DepartureDate);
+                    var returndate = Ultility.ConvertLongToDateTime(schedule.ReturnDate);
                     var emailSend = _config["emailSend"];
                     var keySecurity = _config["keySecurity"];
-                    var stringHtml = Ultility.getHtmlBookingTicket($"{bookingNo} <br> Vui lòng ghi nhớ mã BookingNo này", "Thanh toán thành công", "BookingNo");
-
+                    var stringHtml = Ultility.getHtmlBookingTicket(pincode, fullname, idtour,qr,departurnday.ToString(),returndate.ToString());
+            
                     Ultility.sendEmail(stringHtml, tourbooking.Email, "Thanh toán dịch vụ", emailSend, keySecurity);
                     #endregion
 
