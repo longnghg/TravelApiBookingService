@@ -521,7 +521,7 @@ namespace Travel.Data.Repositories
 
                 tourbooking.TourBookingDetails = tourBookingDetail;
                 #region create qr
-                string qrCodeText = _config["ReturnBill/" + tourbooking.IdTourBooking]; // cần truyền gì bỏ vào
+                string qrCodeText = _config["Bill"]+ "bill/" + tourbooking.IdTourBooking; // cần truyền gì bỏ vào
                 string urlQR = AddImg(qrCodeText, tourbooking.IdTourBooking);
                 tourbooking.UrlQR = urlQR;
                 #endregion
