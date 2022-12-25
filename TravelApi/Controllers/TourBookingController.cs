@@ -85,8 +85,9 @@ namespace TravelApi.Controllers
                 if(checkEmpty)
                 {
                     //await _schedule.UpdateCapacity(createObj.ScheduleId, adult, child, baby);
-                
-                    var emailUser = GetEmailUserLogin().Value;
+
+                    //var emailUser = GetEmailUserLogin().Value;
+                    var emailUser = createObj.Email;
                     res = await _tourbooking.Create(createObj, emailUser);
                 }
                 else
