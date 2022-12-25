@@ -183,7 +183,7 @@ namespace TravelApi.Controllers
         //}
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("send-bill")]
         public async Task<object> SendToBill(string pinCode, string nameCustomer, string tourId, string idTourBooking, long departTureday, long returnDate, string email)
         {
