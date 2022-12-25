@@ -57,7 +57,6 @@ namespace Travel.Data.Interfaces
         Task<Tour> CallServiceGetTourByIdSchedule(string idSchedule);
         Task<bool> CallServiceCheckEmptyCapacity(string idSchedule, int adult, int child, int baby);
         Task<List<string>> CallServiceGetListIdScheduleFinished();
-        Task CallServiceUpdateCapacity(string idSchedule, int quantityAdult, int quantityChild, int quantityBaby);
 
         #endregion
     }
