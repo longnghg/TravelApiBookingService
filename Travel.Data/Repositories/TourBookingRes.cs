@@ -1540,5 +1540,18 @@ namespace Travel.Data.Repositories
             #endregion
             return Ultility.Responses("", Enums.TypeCRUD.Success.ToString());
         }
+
+        public async Task DeleteTourBookingImme(string idSchedule)
+        {
+            var result = await (from x in _db.TourBookings.AsNoTracking()
+                                where x.ScheduleId == idSchedule
+                                select x).ToListAsync();
+            foreach (var item in result)
+            {
+                item.Status = (int)Enums.StatusBooking.Cancel;
+                UpdateDatabase(item);
+            }
+            await SaveChangeAsync();
+        }
     }
 }

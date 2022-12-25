@@ -267,6 +267,13 @@ namespace TravelApi.Controllers
             return   await _tourbooking.TourBookingByIdCustomer(idCustomer);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("delete-booking-s")]
+        public async Task DeleteTourBookingImme(string idSchedule)
+        {
+             await _tourbooking.DeleteTourBookingImme(idSchedule);
+        }
 
         [HttpGet]
         [AllowAnonymous]
