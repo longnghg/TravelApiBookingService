@@ -249,7 +249,7 @@ namespace TravelApi.Controllers
         #region service call
 
       
-              [HttpGet]
+         [HttpGet]
         [AllowAnonymous]
         [Route("list-tour-booking-by-id-customer-s")]
         public async Task<object> TourBookingByIdCustomer(Guid idCustomer)
@@ -276,6 +276,13 @@ namespace TravelApi.Controllers
             return _tourbooking.GetListBookingByIdSchedule(idSchedule);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("delete-booking-expired")]
+        public async Task DeleteBookingExpiredController()
+        {
+            await _tourbooking.DeleteBookingExpired();
+        }
         #endregion
 
 

@@ -1496,5 +1496,30 @@ namespace Travel.Data.Repositories
                                     select x).ToList();
             return tourBooking;
         }
+
+        public async Task <Response> DeleteBookingExpired()
+        {
+            try
+            {
+                var datetime = Ultility.ConvertDatetimeToUnixTimeStampMiliSecond(DateTime.Now);
+                              
+                var result = await (from x in _db.TourBookings.AsNoTracking()
+                              where x.LastDate <= datetime 
+                              && x.Status == (int)Enums.StatusBooking.Paying 
+                                    select x).ToListAsync();
+                foreach (var item in result)
+                {
+                    item.Status = 4;
+                    UpdateDatabase(item);
+                }
+                SaveChange();
+                return Ultility.Responses("", Enums.TypeCRUD.Success.ToString());
+            }
+            catch (Exception)
+            {
+
+                return Ultility.Responses("", Enums.TypeCRUD.Error.ToString());
+            }
+        }
     }
 }

@@ -45,6 +45,7 @@ namespace Travel.Data.Interfaces
         Task<List<TourBooking>> TourBookingByIdCustomer(Guid idCustomer);
         Task ChangeFeedBack(string idTourBooking);
         List<TourBooking> GetListBookingByIdSchedule(string schedule);
+        Task <Response> DeleteBookingExpired();
 
         #region service call
 

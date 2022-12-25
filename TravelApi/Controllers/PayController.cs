@@ -211,7 +211,7 @@ namespace TravelApi.Controllers
         
               await  _tourbooking.DoPayment(idTourBooking, idCustomer);
             
-            return Redirect($"{_configuration["UrlClientCustomer"]}/bill/{idTourBooking}");
+            return Redirect($"{_configuration["UrlClientCustomer"]}bill/{idTourBooking}");
 
         }
 
