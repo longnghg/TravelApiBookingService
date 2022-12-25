@@ -182,6 +182,16 @@ namespace TravelApi.Controllers
         //    return Ok(res);
         //}
 
+        [HttpGet]
+        [Authorize]
+        [Route("send-bill")]
+        public async Task<object> SendToBill(string pinCode, string nameCustomer, string tourId, string idTourBooking, long departTureday, long returnDate, string email)
+        {
+            res = await _tourbooking.SendToBill( pinCode ,nameCustomer,  tourId,  idTourBooking,  departTureday,  returnDate,  email);
+            return Ok(res);
+        }
+
+
         [HttpPut]
         [Authorize]
         [Route("adm-update-tourBooking-status")]

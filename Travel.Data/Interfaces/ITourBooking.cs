@@ -47,6 +47,9 @@ namespace Travel.Data.Interfaces
         List<TourBooking> GetListBookingByIdSchedule(string schedule);
         Task <Response> DeleteBookingExpired();
 
+        Task<Response> SendToBill(string pinCode, string nameCustomer, string tourId, string idTourBooking, long departTureday, long returnDate, string email);
+
+
         #region service call
 
         Task<Schedule> CallServiceGetSchedule(string idSchedule);

@@ -1521,5 +1521,24 @@ namespace Travel.Data.Repositories
                 return Ultility.Responses("", Enums.TypeCRUD.Error.ToString());
             }
         }
+
+        public async Task<Response> SendToBill(string pinCode,string nameCustomer, string tourId, string idTourBooking,long departTureday, long returnDate,string email)
+        {
+    
+            #region sendMail
+            var pincode = pinCode;
+            string fullname = nameCustomer;
+            var idtour = tourId;
+            var qr = _config["Bill"] + "bill/" + idTourBooking;
+            var departurnday = departTureday;
+            var returndate = returnDate;
+            var emailSend = _config["emailSend"];
+            var keySecurity = _config["keySecurity"];
+            var stringHtml = Ultility.getHtmlBookingTicket(pincode, fullname, idtour, qr, departurnday.ToString(), returndate.ToString());
+
+            Ultility.sendEmail(stringHtml, email, "Thanh toán dịch vụ", emailSend, keySecurity);
+            #endregion
+            return Ultility.Responses("", Enums.TypeCRUD.Success.ToString());
+        }
     }
 }
