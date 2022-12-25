@@ -35,7 +35,7 @@ namespace TravelApi.Controllers.Notify
             return Ok(res);
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("list-statistic-total-tourbooking-by-date")]
         public object GetStatisticTotalTourBooking(long fromDate, long toDate)
         {
@@ -43,7 +43,7 @@ namespace TravelApi.Controllers.Notify
             return Ok(res);
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("list-statistic-tourbooking-by-year")]
         public object GetStatisticTourbookingByYear(int year)
         {
@@ -52,7 +52,7 @@ namespace TravelApi.Controllers.Notify
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("list-statistic-tourbooking-by-month")]
         public object GetStatisticTourbookingByMonth(int month , int year)
         {
@@ -60,7 +60,7 @@ namespace TravelApi.Controllers.Notify
             return Ok(res);
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("list-statistic-tourbooking-by-week")]
         public object StatisticTourBookingInThisWeek(long fromDate, long toDate)
         {

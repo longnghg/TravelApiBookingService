@@ -31,7 +31,7 @@ namespace TravelApi.Controllers
             return (User.Identity as ClaimsIdentity).Claims.Where(c => c.Type == ClaimTypes.Email).FirstOrDefault();
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("list-payment")]
         public object GetPayment()
         {
@@ -40,7 +40,7 @@ namespace TravelApi.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [Route("create-payment")]
         public object Create([FromBody] JObject frmData)
         {

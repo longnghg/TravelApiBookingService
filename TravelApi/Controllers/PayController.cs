@@ -91,7 +91,7 @@ namespace TravelApi.Controllers
         //}
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("checkout-paypal")]
         public async Task<object> PaypalCheckout(string idTourBooking, string idCustomer)
         {
@@ -204,7 +204,7 @@ namespace TravelApi.Controllers
 
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("check-paypal")]
         public async Task<object> UpdateStatusTourbooking(string idTourBooking, string idCustomer)
         {
@@ -216,7 +216,7 @@ namespace TravelApi.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("checkout-vnpay")]
         public async Task<object> VnPayCheckout(string idTourBooking,string idCustomer)
         {
@@ -228,7 +228,7 @@ namespace TravelApi.Controllers
             };
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("callback-vnpay")]
         public async Task<object> PaymentCallback(string idTourBooking, string idCustomer)
         {
