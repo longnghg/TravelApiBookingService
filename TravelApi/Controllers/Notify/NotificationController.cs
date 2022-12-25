@@ -22,7 +22,7 @@ namespace TravelApi.Controllers.Notify
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [Route("list-notification")]
         public async Task<object> Get(string idRole, Guid idEmp, bool IsSeen, int pageSize)
         {
