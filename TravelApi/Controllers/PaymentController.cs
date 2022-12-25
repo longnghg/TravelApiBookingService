@@ -31,7 +31,7 @@ namespace TravelApi.Controllers
             return (User.Identity as ClaimsIdentity).Claims.Where(c => c.Type == ClaimTypes.Email).FirstOrDefault();
         }
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("list-payment")]
         public object GetPayment()
         {
