@@ -495,8 +495,8 @@ namespace Travel.Data.Repositories
                     priceSchedule = schedule.FinalPrice;
                     priceSchedule = (adult * schedule.FinalPrice) + (child * schedule.PriceChild);
                 }
-                var pricePromotion = (priceSchedule * (float)schedule.ValuePromotion) / 100;
-                var totalPrice = Math.Round(priceSchedule - pricePromotion);
+                var pricePromotion = FormatPriceFloat((priceSchedule * (float)schedule.ValuePromotion) / 100);
+                var totalPrice = FormatPriceDouble(Math.Round(priceSchedule - pricePromotion));
                 // tính giá cho tất cả hành kháhc
                 double totalPriceInput = 0;
                 if (vourcher.Code != null) // có áp dụng vourcher hợp lệ
@@ -508,8 +508,8 @@ namespace Travel.Data.Repositories
                     totalPrice = totalPrice * (double)price;
                     float totalPriceVoucher = (float)totalPrice;
 
-                    totalPrice = Math.Round(totalPriceVoucher);
-                    totalPriceInput = Math.Round(input.TotalPrice); // đã qua tính vourcher
+                    totalPrice = FormatPriceDouble(Math.Round(totalPriceVoucher));
+                    totalPriceInput = FormatPriceDouble(Math.Round(input.TotalPrice)); // đã qua tính vourcher
                     //if (totalPrice != totalPriceInput) // giá ko giống nhau
                     //{
                     //    return Ultility.Responses("Hệ thống xảy ra lỗi, vui lòng thử lại !", Enums.TypeCRUD.Warning.ToString());
@@ -577,6 +577,45 @@ namespace Travel.Data.Repositories
                 return Ultility.Responses("Có lỗi xảy ra !", Enums.TypeCRUD.Error.ToString(), description: e.Message);
                 ;
             }
+        }
+        private float FormatPriceFloat(float price)
+        {
+            string formattedNumber = price.ToString("N0");
+            var arrrrr = formattedNumber.Split(",");
+            var replaceNumberEnd = arrrrr[arrrrr.Length - 1];
+            replaceNumberEnd = "000";
+            int lengthArr = arrrrr.Length;
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < lengthArr; i++)
+            {
+                if (i == lengthArr - 1)
+                {
+                    arrrrr[i] = replaceNumberEnd;
+                }
+                strBuilder.Append(arrrrr[i]);
+            }
+            price = float.Parse(strBuilder.ToString());
+            return price;
+        }
+
+        private double FormatPriceDouble(double price)
+        {
+            string formattedNumber = price.ToString("N0");
+            var arrrrr = formattedNumber.Split(",");
+            var replaceNumberEnd = arrrrr[arrrrr.Length - 1];
+            replaceNumberEnd = "000";
+            int lengthArr = arrrrr.Length;
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < lengthArr; i++)
+            {
+                if (i == lengthArr - 1)
+                {
+                    arrrrr[i] = replaceNumberEnd;
+                }
+                strBuilder.Append(arrrrr[i]);
+            }
+            price = double.Parse(strBuilder.ToString());
+            return price;
         }
         public byte[] ImageToByteArray(System.Drawing.Image imageIn)
         {
