@@ -68,7 +68,7 @@ namespace TravelApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [AllowAnonymous]
         [Route("create-tourbooking")]
         public async Task<object> Create([FromBody] JObject frmData)
         {
