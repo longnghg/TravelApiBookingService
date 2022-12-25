@@ -22,12 +22,13 @@ namespace TravelApi.Helpers
         }
         public static async Task<Event> CreateGoogleCalendar(GoogleCalendar request)
         {
-            var EventAttendee = new List<EventAttendee>()
-                {
-                    new EventAttendee() { Email = "driverhuyhoa@gmail.com" ,Organizer = true,DisplayName="Ku mè",Comment= "Ma vương tới chơi"},
-                                        new EventAttendee() { Email = "hoaphps13016@fpt.edu.vn" ,Organizer = true,DisplayName="Ku mè 2",Comment= "Ma vương tới chơi"},
-
-                };
+            //var arrList = request.EmailNhan.Split(",");
+            var EventAttendee = new List<EventAttendee>();
+            //foreach (var item in arrList)
+            //{
+                var eventAttendee = new EventAttendee() { Email = request.EmailNhan, Organizer = true, DisplayName = "VUA DU LỊCH", Comment = "Chuyến đi mang lại cảm giác tươi mới" };
+                EventAttendee.Add(eventAttendee);
+            //}
             string[] Scopes = {"https://www.googleapis.com/auth/calendar"};
             string ApplicationName = "Google Calendar API";
             UserCredential credential;
@@ -51,7 +52,6 @@ namespace TravelApi.Helpers
 
             Event eventCalendar = new Event() {
                 Recurrence = new String[] { "RRULE:FREQ=WEEKLY;BYDAY=MO" },
-                Attendees = EventAttendee,
                 ColorId = "1",
                 Organizer = new OrganizerData 
                 { 
@@ -59,6 +59,7 @@ namespace TravelApi.Helpers
                     DisplayName = "Vua" ,
                     Self = true
                 },
+                Attendees = EventAttendee,
                 Creator = new CreatorData { DisplayName ="Vua",
                 Email = "longnghg100220@gmail.com"
                 },
@@ -79,7 +80,7 @@ namespace TravelApi.Helpers
                 Description = request.Description
                 
             };
-            
+           
             var eventRequest = services.Events.Insert(eventCalendar, "primary");
             eventRequest.SendNotifications = true;
          

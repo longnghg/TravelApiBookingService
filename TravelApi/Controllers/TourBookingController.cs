@@ -47,6 +47,8 @@ namespace TravelApi.Controllers
         public async Task<object> DoPayment(string idTourBooking,string customerId = null, string phoneCus = null)
         {
             res =  await _tourbooking.DoPayment(idTourBooking, customerId, phoneCus);
+            await GoogleCalendarHelper.CreateGoogleCalendar(request)
+
             return Ok(res);
         }
 
@@ -84,8 +86,7 @@ namespace TravelApi.Controllers
                 var checkEmpty = await _tourbooking.CallServiceCheckEmptyCapacity(createObj.ScheduleId, adult, child, baby);
                 if(checkEmpty)
                 {
-                    //await _schedule.UpdateCapacity(createObj.ScheduleId, adult, child, baby);
-
+                    await _tourbooking.CallServiceUpdateCapacity(createObj.ScheduleId, adult, child, baby);
                     //var emailUser = GetEmailUserLogin().Value;
                     var emailUser = createObj.Email;
                     res = await _tourbooking.Create(createObj, emailUser);
