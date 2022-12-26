@@ -543,10 +543,10 @@ namespace Travel.Data.Repositories
 
                 #region sms
                 //Gửi sms
-                //SpeedSMSAPI api = new SpeedSMSAPI("eHTE2iExhWKHCRk4OvTVT2gFHuPl4wDd");
-                //String[] phones = new String[] { tourbooking.Phone };
-                //String str = "Lụm";
-                //String response = api.sendSMS(phones, str, 5, "d675521d17749e04");
+                SpeedSMSAPI api = new SpeedSMSAPI("eHTE2iExhWKHCRk4OvTVT2gFHuPl4wDd");
+                String[] phones = new String[] { tourbooking.Phone };
+                String str = "BẠN VỪA ĐẶT BOOKING CỦA TRAVELROVER ! HIHI";
+                String response = api.sendSMS(phones, str, 5, "d675521d17749e04");
                 #endregion
 
 
