@@ -14,9 +14,9 @@ namespace TravelApi.Controllers
     public class GoogleCalendarController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> CreateGoogleCalendar([FromBody] GoogleCalendar request)
+        public async Task CreateGoogleCalendar([FromBody] GoogleCalendar request)
         {
-            return Ok(await GoogleCalendarHelper.CreateGoogleCalendar(request));
+            await GoogleCalendarHelper.CreateGoogleCalendar(request);
         }
     }
 }
