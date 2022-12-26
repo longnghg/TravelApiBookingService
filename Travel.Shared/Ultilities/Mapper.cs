@@ -51,7 +51,7 @@ namespace Travel.Shared.Ultilities
                    .ForMember(dto => dto.Phone, opt => opt.MapFrom(src => src.Phone))
                    .ForMember(dto => dto.NameContact, opt => opt.MapFrom(src => src.NameContact))
                    .ForMember(dto => dto.DateBooking, opt => opt.MapFrom(src => Ultility.ConvertDatetimeToUnixTimeStampMiliSecond(DateTime.Now)))
-                   .ForMember(dto => dto.LastDate, opt => opt.MapFrom(src => Ultility.ConvertDatetimeToUnixTimeStampMiliSecond(DateTime.Now.AddDays(1))))
+                   .ForMember(dto => dto.LastDate, opt => opt.MapFrom(src => Ultility.ConvertDatetimeToUnixTimeStampMiliSecond(DateTime.Now.AddMinutes(4))))
                    .ForMember(dto => dto.Vat, opt => opt.MapFrom(src => src.Vat))
                    .ForMember(dto => dto.Pincode, opt => opt.MapFrom(src => src.Pincode))
                    .ForMember(dto => dto.VoucherCode, opt => opt.MapFrom(src => string.IsNullOrEmpty(src.VoucherCode) ? src.VoucherCode : ""))

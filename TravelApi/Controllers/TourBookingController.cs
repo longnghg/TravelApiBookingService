@@ -101,7 +101,7 @@ namespace TravelApi.Controllers
             return Ok(res);
         }
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("tour-booking-by-id")]
         public async Task<object> TourBookingById(string idTourBooking)
         {
