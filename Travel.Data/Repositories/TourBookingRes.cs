@@ -798,6 +798,8 @@ namespace Travel.Data.Repositories
                 return Ultility.Responses("Có lỗi xảy ra !", Enums.TypeCRUD.Error.ToString(), description: e.Message);
             }
         }
+
+
         public async Task<Response> DoPayment(string idTourBooking,string customerid, string phone) // for admin if customer payment
         {
             try
@@ -844,10 +846,15 @@ namespace Travel.Data.Repositories
                     var emailSend = _config["emailSend"];
                     var keySecurity = _config["keySecurity"];
                     var stringHtml = Ultility.getHtmlBookingTicket(pincode, fullname, idtour,qr,departurnday.ToString(),returndate.ToString());
-            
+
+                    TravelApi.Calendar.GoogleCalendar request = new();
+                    request.EmailNhan = tourbooking.Email;
+                    request.Start = departurnday;
+                    request.End = returndate;
+                    request.Location = schedule.Tour.ToPlace;
+                    await TravelApi.Helpers.GoogleCalendarHelper.CreateGoogleCalendar(request);
                     Ultility.sendEmail(stringHtml, tourbooking.Email, "Thanh toán dịch vụ", emailSend, keySecurity);
                     #endregion
-
                     return Ultility.Responses("Thanh toán thành công !", Enums.TypeCRUD.Success.ToString());
 
                 }
