@@ -260,7 +260,7 @@ namespace TravelApi.Controllers
 
       
          [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("list-tour-booking-by-id-customer-s")]
         public async Task<object> TourBookingByIdCustomer(Guid idCustomer)
         {
@@ -268,7 +268,7 @@ namespace TravelApi.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("delete-booking-s")]
         public async Task DeleteTourBookingImme(string idSchedule)
         {
@@ -276,7 +276,7 @@ namespace TravelApi.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("change-feedback-s")]
         public async Task ChangeFeedBack(string idTourBooking)
         {
@@ -286,7 +286,7 @@ namespace TravelApi.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("list-tour-booking-by-idschedule-s")]
         public object ListTourBookingByIdSchedule(string idSchedule)
         {
@@ -294,7 +294,7 @@ namespace TravelApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [AllowAnonymous]
         [Route("delete-booking-expired")]
         public async Task DeleteBookingExpiredController()
         {
