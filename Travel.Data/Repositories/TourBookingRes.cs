@@ -447,7 +447,7 @@ namespace Travel.Data.Repositories
                 client.BaseAddress = new Uri($"{urlService}");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await client.DeleteAsync($"api/schedule/update-quantity-s?idSchedule={idSchedule}&quantityAdult={quantityAdult}&quantityChild={quantityChild}&quantityBaby={quantityBaby}");
+                HttpResponseMessage response = await client.GetAsync($"api/schedule/update-quantity-s?idSchedule={idSchedule}&quantityAdult={quantityAdult}&quantityChild={quantityChild}&quantityBaby={quantityBaby}");
             }
         }
         public async Task<Response> Create(CreateTourBookingViewModel input, string emailUser)
@@ -1510,7 +1510,7 @@ namespace Travel.Data.Repositories
         public async Task<List<TourBooking>> TourBookingByIdCustomer(Guid idCustomer)
         {
 
-            var tourBooking = await _db.TourBookings.Where(x => x.CustomerId == idCustomer).Include(x => x.TourBookingDetails).AsNoTracking().ToListAsync();
+            var tourBooking = await _db.TourBookings.Include(x => x.TourBookingDetails).Where(x => x.CustomerId == idCustomer).AsNoTracking().ToListAsync();
             return tourBooking;
         }
 
